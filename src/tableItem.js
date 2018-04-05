@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import './tableItem.css';
 // import $ from 'jquery';
-import diamond from './diamond.png';
-import arrow from './arrow.png';
-import question from './question.png';
+import diamond from './assets/diamond.png';
+import arrow from './assets/arrow.png';
+import question from './assets/question.png';
 export default class TableItem extends Component {
   state = {
     pressed: false,
@@ -101,7 +101,7 @@ export default class TableItem extends Component {
             src={question}
             className="images"
             alt="question"
-            style={{ opacity: 0.2 }}
+            style={{ opacity: 0.4 }}
           />
         </button>
       );
