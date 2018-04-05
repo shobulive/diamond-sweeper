@@ -1,0 +1,24 @@
+
+.button {
+  height:50px;
+  width:50px;
+  margin:2px;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.button:hover {
+  transform: scale(1.2);
+}
+.button:active {
+  transform: scale(0)
+}
+.display-value {
+  height:50px;
+  width:50px;
+  border: 1px solid black;
+  margin:2px;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+}
