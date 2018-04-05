@@ -1,7 +1,7 @@
 .score-text {
   font-size: 40px;
   font-family: "Times New Roman", Times, serif;
-  float: right;
+  float: left;
 }
 .table-board{
   float: left;
@@ -9,6 +9,9 @@
 .game-over-text{
   font-size: 40px;
   font-family: "Times New Roman", Times, serif;
+}
+.score-board{
+  float: right;
 }
 .score-text-game-over {
   font-size: 40px;

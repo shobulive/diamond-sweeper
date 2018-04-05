@@ -86,8 +86,8 @@ class App extends Component {
         <table className="table-board">
           <tbody>{this._renderRows()}</tbody>
         </table>
-        <p className="score-text">
-          Your score: {this.state.score}
+        <div className="score-board">
+          <p className="score-text">Your score: {this.state.score}</p>
           <p
             hidden={true}
             id={'decrease'}
@@ -95,7 +95,7 @@ class App extends Component {
           >
             -1
           </p>
-        </p>
+        </div>
       </div>
     );
   }
