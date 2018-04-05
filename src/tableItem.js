@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './tableItem.css';
-// import $ from 'jquery';
 import diamond from './assets/diamond.png';
 import arrow from './assets/arrow.png';
 import question from './assets/question.png';
@@ -9,22 +8,9 @@ export default class TableItem extends Component {
     pressed: false,
     isDiamond: false
   };
-  diamondPositions = this.props.diamondPositions.slice();
-  diamondIndexInPosArray = this.diamondPositions.findIndex(
-    d => d.r === this.props.row && d.c === this.props.col
-  );
   resetBoxes() {
     if (!this.state.isDiamond && this.state.pressed) {
       this.setState({ pressed: false });
-    }
-  }
-  componentDidMount() {
-    if (
-      this.props.diamondPositions.findIndex(
-        pos => pos.r === this.props.row && pos.c === this.props.col
-      ) !== -1
-    ) {
-      this.setState({ isDiamond: true });
     }
   }
   left = <img src={arrow} className="images" alt="arrowL" />;

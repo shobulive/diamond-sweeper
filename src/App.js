@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
-// import logo from './logo.svg';
 import './App.css';
 import TableItem from './tableItem';
-// let score = 64;
 let removeDec;
+const SIZE = 8;
 class App extends Component {
   diamondPositions = [
-    { r: Math.floor(Math.random() * 8), c: Math.floor(Math.random() * 8) }
+    { r: Math.floor(Math.random() * SIZE), c: Math.floor(Math.random() * SIZE) }
   ];
   refItems = [];
-  state = { gameOver: false, score: 64 };
+  state = { gameOver: false, score: SIZE * SIZE };
   componentWillMount() {
-    while (this.diamondPositions.length < 8) {
-      let r = Math.floor(Math.random() * 8);
-      let c = Math.floor(Math.random() * 8);
+    while (this.diamondPositions.length < SIZE) {
+      let r = Math.floor(Math.random() * SIZE);
+      let c = Math.floor(Math.random() * SIZE);
       if (
         this.diamondPositions.findIndex(pos => pos.r === r && pos.c === c) ===
         -1
@@ -53,12 +52,12 @@ class App extends Component {
   }
   _renderRowElements(row) {
     let rowElements = [];
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < SIZE; i++) {
       rowElements.push(
         <td key={i + '' + row}>
           <TableItem
             ref={ref => {
-              if (this.refItems.length < 64)
+              if (this.refItems.length < SIZE * SIZE)
                 this.refItems.push({ row: row, col: i, ref });
             }}
             row={row}
@@ -76,7 +75,7 @@ class App extends Component {
   }
   _renderRows() {
     let row = [];
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < SIZE; i++) {
       row.push(<tr key={i}>{this._renderRowElements(i)}</tr>);
     }
     return row;
