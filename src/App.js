@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import './styles/App.css';
 import TableItem from './tableItem';
 let removeDec;
 const SIZE = 8;

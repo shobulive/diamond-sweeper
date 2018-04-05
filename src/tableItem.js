@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './tableItem.css';
+import './styles/tableItem.css';
 import diamond from './assets/diamond.png';
 import arrow from './assets/arrow.png';
 import question from './assets/question.png';
