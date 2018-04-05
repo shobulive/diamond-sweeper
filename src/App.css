@@ -1,28 +1,38 @@
-.App {
+.score-text {
+  font-size: 40px;
+  font-family: "Times New Roman", Times, serif;
+  float: right;
+}
+.table-board{
+  float: left;
+}
+.game-over-text{
+  font-size: 40px;
+  font-family: "Times New Roman", Times, serif;
+}
+.score-text-game-over {
+  font-size: 40px;
+  font-family: "Times New Roman", Times, serif;
+}
+.game-over-content
+{
   text-align: center;
+  animation: game-over-content-highlight infinite 5s linear;
 }
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+@keyframes game-over-content-highlight {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.5); }
+  100% { transform: scale(1); }
 }
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.score-text-score-decrement{
+  color: red;
+  font-size: 30px;
+  font-weight: bold;
+  opacity: 1;
+  float: right;
+  animation:score-text-score-decrement-anim infinite 0.5s linear;
 }
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+@keyframes score-text-score-decrement-anim {
+  0% { transform: translateY(0px);opacity: 1; }
+  100% { transform: translateY(100px);opacity: 0; }
 }

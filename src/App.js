@@ -2,10 +2,14 @@ import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
 import TableItem from './tableItem';
+// let score = 64;
+let removeDec;
 class App extends Component {
   diamondPositions = [
     { r: Math.floor(Math.random() * 8), c: Math.floor(Math.random() * 8) }
   ];
+  refItems = [];
+  state = { gameOver: false, score: 64 };
   componentWillMount() {
     while (this.diamondPositions.length < 8) {
       let r = Math.floor(Math.random() * 8);
@@ -18,24 +22,52 @@ class App extends Component {
       }
     }
   }
-
+  _decrementCounter(row, col) {
+    // console.log(this.refItems.length);
+    this.refItems.forEach(refItem => {
+      if (refItem.row !== row && refItem.col !== col) {
+        refItem.ref.resetBoxes();
+      }
+    });
+    const dec = document.getElementById('decrease');
+    dec.style = 'display:inline';
+    clearTimeout(removeDec);
+    removeDec = setTimeout(() => {
+      dec.style = 'display:none';
+    }, 500);
+    this.setState({ score: this.state.score - 1 });
+    if (this.state.score === 0) {
+      this.setState({ gameOver: true });
+    }
+  }
+  _removeRevealedDiamondFromSearchArray(row, col) {
+    this.diamondPositions.splice(
+      this.diamondPositions.findIndex(
+        diamond => diamond.r === row && diamond.c === col
+      ),
+      1
+    );
+    if (this.diamondPositions.length === 0) {
+      this.setState({ gameOver: true });
+    }
+  }
   _renderRowElements(row) {
     let rowElements = [];
     for (let i = 0; i < 8; i++) {
       rowElements.push(
-        <td>
+        <td key={i + '' + row}>
           <TableItem
+            ref={ref => {
+              if (this.refItems.length < 64)
+                this.refItems.push({ row: row, col: i, ref });
+            }}
             row={row}
             col={i}
             diamondPositions={this.diamondPositions}
-            removeDiamondFromArray={() => {
-              this.diamondPositions.splice(
-                this.diamondPositions.findIndex(
-                  diamond => diamond.r === row && diamond.c === i
-                ),
-                1
-              );
-            }}
+            removeDiamondFromArray={() =>
+              this._removeRevealedDiamondFromSearchArray(row, i)
+            }
+            decrementCounter={() => this._decrementCounter(row, i)}
           />
         </td>
       );
@@ -45,29 +77,51 @@ class App extends Component {
   _renderRows() {
     let row = [];
     for (let i = 0; i < 8; i++) {
-      row.push(<tr>{this._renderRowElements(i)}</tr>);
+      row.push(<tr key={i}>{this._renderRowElements(i)}</tr>);
     }
     return row;
   }
   _renderTable() {
     return (
-      <table>
-        <tbody>{this._renderRows()}</tbody>
-      </table>
+      <div>
+        <table className="table-board">
+          <tbody>{this._renderRows()}</tbody>
+        </table>
+        <p className="score-text">
+          Your score: {this.state.score}
+          <p
+            hidden={true}
+            id={'decrease'}
+            className="score-text-score-decrement"
+          >
+            -1
+          </p>
+        </p>
+      </div>
+    );
+  }
+  _renderGameOver() {
+    return (
+      <div className="game-over-content">
+        <span className="game-over-text">Game Over</span>
+        <p className="score-text-game-over">Your score: {this.state.score}</p>
+        <p>Reload to Play again</p>
+        <p>Made with {`<3`} by Shubham Singh</p>
+      </div>
     );
   }
   render() {
     return (
-      <body>
+      <div>
         <div className="container">
           <div className="jumbotron">
             <h1 style={{ textAlign: 'center' }}>Diamond Sweeper</h1>
           </div>
         </div>
-        <div className="container" style={{ textAlign: 'center' }}>
-          {this._renderTable()}
+        <div className="container">
+          {this.state.gameOver ? this._renderGameOver() : this._renderTable()}
         </div>
-      </body>
+      </div>
     );
   }
 }

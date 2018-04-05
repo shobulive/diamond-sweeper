@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import './tableItem.css';
 // import $ from 'jquery';
+import diamond from './diamond.png';
+import arrow from './arrow.png';
+import question from './question.png';
 export default class TableItem extends Component {
   state = {
     pressed: false,
@@ -10,6 +13,11 @@ export default class TableItem extends Component {
   diamondIndexInPosArray = this.diamondPositions.findIndex(
     d => d.r === this.props.row && d.c === this.props.col
   );
+  resetBoxes() {
+    if (!this.state.isDiamond && this.state.pressed) {
+      this.setState({ pressed: false });
+    }
+  }
   componentDidMount() {
     if (
       this.props.diamondPositions.findIndex(
@@ -19,17 +27,25 @@ export default class TableItem extends Component {
       this.setState({ isDiamond: true });
     }
   }
-  left = '>';
-  right = '<';
-  up = '^';
-  down = 'v';
+  left = <img src={arrow} className="images" alt="arrowL" />;
+  right = <img src={arrow} className="images right" alt="arrowR" />;
+  up = <img src={arrow} className="images up" alt="arrowU" />;
+  down = <img src={arrow} className="images down" alt="arrowD" />;
   render() {
     if (!this.state.pressed)
       return (
         <button
           className="button"
           id={'button'}
+          style={{
+            background:
+              (this.props.row % 2 === 0 && this.props.col % 2 === 1) ||
+              (this.props.row % 2 === 1 && this.props.col % 2 === 0)
+                ? '#cc9966'
+                : '#ffbf00'
+          }}
           onClick={() => {
+            this.props.decrementCounter();
             let isDiamond = false;
             let nearestNeighbour;
             if (
@@ -69,14 +85,32 @@ export default class TableItem extends Component {
             }
             if (isDiamond) {
               this.props.removeDiamondFromArray();
+            } else {
+              setTimeout(() => this.resetBoxes(), 4000);
             }
-            this.setState({ isDiamond }, () =>
-              this.setState({ pressed: true })
+            setTimeout(
+              () =>
+                this.setState({ isDiamond }, () =>
+                  this.setState({ pressed: true })
+                ),
+              0
             );
           }}
-        />
+        >
+          <img
+            src={question}
+            className="images"
+            alt="question"
+            style={{ opacity: 0.2 }}
+          />
+        </button>
       );
-    if (this.state.isDiamond) return <div className="display-value">Y</div>;
-    return <div className="display-value">{this.state.nextDirection}</div>;
+    if (this.state.isDiamond)
+      return (
+        <div className="display-value-diamond">
+          <img src={diamond} className="images" alt="diamond" />
+        </div>
+      );
+    return <div className={`display-value`}>{this.state.nextDirection}</div>;
   }
 }
