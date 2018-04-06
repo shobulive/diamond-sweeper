@@ -10,12 +10,27 @@
   transition-duration: 0.4s;
   cursor: pointer;
 }
-
+.button-rotate {
+  height:60px;
+  width:60px;
+  margin:2px;
+  padding-left:0px;
+  padding-right:0px;
+  text-align: center;
+  animation: 1s ease-out 0s 1 button-rotate-animation;
+}
+@keyframes button-rotate-animation{
+  0% {
+    transform:  rotateY(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform:  rotateY(180deg);
+    opacity: 0;
+  }
+}
 .button:hover {
   transform: scale(1.2);
-}
-.button:active {
-  transform: rotateY(180deg)
 }
 .display-value {
   height:60px;
@@ -39,7 +54,7 @@
   25% {
     transform: scale(1.2) rotate(15deg);
   }
-  60% {
+  50% {
     transform: scale(1.2) rotate(-15deg);
   }
   75% {

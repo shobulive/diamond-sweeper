@@ -23,7 +23,7 @@ export default class TableItem extends Component {
       return (
         <button
           className="button"
-          id={'button'}
+          id={`button${this.props.row}${this.props.col}`}
           style={{
             background:
               (this.props.row % 2 === 0 && this.props.col % 2 === 1) ||
@@ -32,6 +32,10 @@ export default class TableItem extends Component {
                 : '#ffbf00'
           }}
           onClick={() => {
+            document.getElementById(
+              `button${this.props.row}${this.props.col}`
+            ).className =
+              'button-rotate';
             this.props.decrementCounter();
             let isDiamond = false;
             let nearestNeighbour;
@@ -77,10 +81,14 @@ export default class TableItem extends Component {
             }
             setTimeout(
               () =>
-                this.setState({ isDiamond }, () =>
-                  this.setState({ pressed: true })
-                ),
-              0
+                this.setState({ isDiamond }, () => {
+                  this.setState({ pressed: true });
+                  document.getElementById(
+                    `button${this.props.row}${this.props.col}`
+                  ).className =
+                    'button';
+                }),
+              700
             );
           }}
         >
