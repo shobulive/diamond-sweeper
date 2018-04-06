@@ -17,7 +17,7 @@ A simple game diamond finding game on ReactJS. This project is bootstraped with 
 > $ npm install
 
 **Note:**
-**the game board is of N\*N size which is set to 8. You can change this value in the ./src/constants.js => SIZE variable**
+**the game board is of N\*N size which is set to 8 by default. You can change this value in the ./src/constants.js => SIZE variable**
 
 **5. How to launch**
 
