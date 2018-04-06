@@ -36,6 +36,9 @@ class App extends Component {
     this.setState({ score: this.state.score - 1 });
     if (this.state.score === 0) {
       this.setState({ gameOver: true });
+      const prevScore = localStorage.getItem('highScore') || 0;
+      if (prevScore < this.state.score)
+        localStorage.setItem('highScore', this.state.score - 1);
     }
   }
   _removeRevealedDiamondFromSearchArray(row, col) {
@@ -47,6 +50,9 @@ class App extends Component {
     );
     if (this.diamondPositions.length === 0) {
       this.setState({ foundAllDiamond: true });
+      const prevScore = localStorage.getItem('highScore') || 0;
+      if (prevScore < this.state.score)
+        localStorage.setItem('highScore', this.state.score - 1);
     }
   }
   _renderRowElements(row) {
@@ -86,6 +92,14 @@ class App extends Component {
           <tbody>{this._renderRows()}</tbody>
         </table>
         <div className="score-board">
+          <p className="score-text">
+            Your highScore: {localStorage.getItem('highScore') || 0}
+          </p>
+          <br />
+          <p className="score-text">
+            Diamonds Left: {this.diamondPositions.length}
+          </p>
+          <br />
           <p className="score-text">Your score: {this.state.score}</p>
           <p
             hidden={true}
@@ -93,10 +107,6 @@ class App extends Component {
             className="score-text-score-decrement"
           >
             -1
-          </p>
-          <br />
-          <p className="score-text">
-            Diamonds Left: {this.diamondPositions.length}
           </p>
         </div>
       </div>
@@ -122,6 +132,11 @@ class App extends Component {
         <div className="container">
           <div className="jumbotron">
             <h1 style={{ textAlign: 'center' }}>Diamond Sweeper</h1>
+            <p style={{ textAlign: 'center' }}>
+              They say someone has hidden diamonds behind some tiles of this
+              board! Find them all is lowest moves possible. Make high scores
+              and challenge your friends as well.
+            </p>
           </div>
         </div>
         <div className="container">
