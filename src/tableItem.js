@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import './styles/tableItem.css';
-import diamond from './assets/diamond.png';
-import arrow from './assets/arrow.png';
-import question from './assets/question.png';
+import { diamond, arrow, question } from './assets';
 import { SIZE } from './constants';
 export default class TableItem extends Component {
   state = {
