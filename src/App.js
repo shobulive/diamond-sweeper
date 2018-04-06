@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import './styles/App.css';
 import TableItem from './tableItem';
+import { SIZE } from './constants';
 let removeDec;
-const SIZE = 8;
 class App extends Component {
   diamondPositions = [
     { r: Math.floor(Math.random() * SIZE), c: Math.floor(Math.random() * SIZE) }
   ];
   refItems = [];
-  state = { gameOver: false, score: SIZE * SIZE };
+  state = { gameOver: false, foundAllDiamond: false, score: SIZE * SIZE };
   componentWillMount() {
     while (this.diamondPositions.length < SIZE) {
       let r = Math.floor(Math.random() * SIZE);
@@ -22,10 +22,9 @@ class App extends Component {
     }
   }
   _decrementCounter(row, col) {
-    // console.log(this.refItems.length);
     this.refItems.forEach(refItem => {
       if (refItem.row !== row && refItem.col !== col) {
-        refItem.ref.resetBoxes();
+        refItem.ref._resetCurrentTile();
       }
     });
     const dec = document.getElementById('decrease');
@@ -47,7 +46,7 @@ class App extends Component {
       1
     );
     if (this.diamondPositions.length === 0) {
-      this.setState({ gameOver: true });
+      this.setState({ foundAllDiamond: true });
     }
   }
   _renderRowElements(row) {
@@ -95,6 +94,10 @@ class App extends Component {
           >
             -1
           </p>
+          <br />
+          <p className="score-text">
+            Diamonds Left: {this.diamondPositions.length}
+          </p>
         </div>
       </div>
     );
@@ -102,7 +105,11 @@ class App extends Component {
   _renderGameOver() {
     return (
       <div className="game-over-content">
-        <span className="game-over-text">Game Over</span>
+        <span className="game-over-text">
+          {this.state.gameOver
+            ? `Game Over`
+            : `Congratulations! You have found all the diamonds.`}
+        </span>
         <p className="score-text-game-over">Your score: {this.state.score}</p>
         <p>Reload to Play again</p>
         <p>Made with {`<3`} by Shubham Singh</p>
@@ -118,7 +125,9 @@ class App extends Component {
           </div>
         </div>
         <div className="container">
-          {this.state.gameOver ? this._renderGameOver() : this._renderTable()}
+          {this.state.gameOver || this.state.foundAllDiamond
+            ? this._renderGameOver()
+            : this._renderTable()}
         </div>
       </div>
     );

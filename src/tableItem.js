@@ -3,12 +3,13 @@ import './styles/tableItem.css';
 import diamond from './assets/diamond.png';
 import arrow from './assets/arrow.png';
 import question from './assets/question.png';
+import { SIZE } from './constants';
 export default class TableItem extends Component {
   state = {
     pressed: false,
     isDiamond: false
   };
-  resetBoxes() {
+  _resetCurrentTile() {
     if (!this.state.isDiamond && this.state.pressed) {
       this.setState({ pressed: false });
     }
@@ -41,8 +42,8 @@ export default class TableItem extends Component {
             ) {
               isDiamond = true;
             } else {
-              let minR = 8;
-              let minC = 8;
+              let minR = SIZE;
+              let minC = SIZE;
               this.props.diamondPositions.forEach(diamond => {
                 if (
                   (Math.abs(diamond.r - this.props.row) +
@@ -72,7 +73,7 @@ export default class TableItem extends Component {
             if (isDiamond) {
               this.props.removeDiamondFromArray();
             } else {
-              setTimeout(() => this.resetBoxes(), 4000);
+              setTimeout(() => this._resetCurrentTile(), 4000);
             }
             setTimeout(
               () =>
