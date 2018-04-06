@@ -2,7 +2,7 @@
 
 A simple game diamond finding game on ReactJS. This project is bootstraped with [Create React App](https://github.com/facebook/create-react-app).
 
-##Preview
+## Preview
 
 ![Preview](Diamond-Sweeper.gif)
 
