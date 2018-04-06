@@ -20,6 +20,8 @@ A simple game diamond finding game on ReactJS. This project is bootstraped with 
 
 > $ npm run start
 
+> open http://localhost:3000/ or http://127.0.0.1:3000/ using your web browser
+
 ### Other Scripts
 
 > $ npm run build -> minify the app for production
